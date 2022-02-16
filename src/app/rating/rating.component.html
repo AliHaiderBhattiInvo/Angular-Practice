@@ -1,0 +1,17 @@
+<span (click)="(onCLick())">{{isTrue ? "True!" : "False!"}}</span>
+
+<ul class="pointer">
+    <li [class.active]="viewMode == 'map'"><a (click)="viewMode = 'map'">Map Mode</a></li>
+    <li [class.active]="viewMode == 'list'"><a (click)="viewMode = 'list'">List Mode</a></li>
+</ul>
+
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'map'">Map view content</div>
+    <div *ngSwitchCase="'list'">List view content</div>
+    <div *ngSwitchDefault>Otherwise</div>
+</div>
+<h4>Upper Case Input</h4>
+<input type="text" InputFormat [format]="'upperCase'"/>
+<h4>Lower Case Input</h4>
+<input type="text" InputFormat [format]="'lowerCase'"/>
+
