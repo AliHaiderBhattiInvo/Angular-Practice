@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: AuthService) { }
 
   ngOnInit(): void {
+  }
+  logout() {
+    this.service.logout(this.service.getLoginUser.email).subscribe(()=> {
+      localStorage.removeItem('token')
+    })
   }
 
 }

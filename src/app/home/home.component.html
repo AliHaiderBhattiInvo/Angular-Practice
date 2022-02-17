@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="container-fluid">
+  <h3>Home Works</h3>
+  <h5>Welcome Ali!</h5>
+
+  <a class="nav-link" routerLinkActive="active current" routerLink="/admin"
+    >Admin</a
+  >
+  <a class="nav-link" routerLinkActive="active current" routerLink="/">Home</a>
+  <a
+    class="nav-link"
+    routerLinkActive="active current"
+    routerLink="/followers"
+    [queryParams]="{ page: 1, order: 'new' }"
+    >Followers</a
+  >
+  <a class="nav-link" routerLinkActive="active current" routerLink="/posts"
+    >Posts</a
+  >
+
+  <a
+    class="nav-link"
+    routerLinkActive="active current"
+    routerLink="/login"
+    (click)="logout()"
+    >Logout</a
+  >
+</div>

@@ -22,6 +22,12 @@ import { HomeComponent } from './home/home.component';
 import { GitHubProfileComponent } from './git-hub-profile/git-hub-profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { NoAccessComponent } from './no-access/no-access.component';
+import { AuthService } from './services/auth.service';
+import { OrderService } from './services/order.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,10 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     HomeComponent,
     GitHubProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminComponent,
+    LoginComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -47,10 +56,13 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: HomeComponent},
-      {path: 'followers/:id/:username', component: GitHubProfileComponent},
-      {path: 'followers', component: GithubFollowersComponent},
-      {path: 'posts', component: PostsComponent},
+      {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+      {path: 'followers/:id/:username', component: GitHubProfileComponent, canActivate: [AuthGuard]},
+      {path: 'followers', component: GithubFollowersComponent, canActivate: [AuthGuard]},
+      {path: 'posts', component: PostsComponent, canActivate: [AuthGuard]},
+      {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+      {path: 'login', component: LoginComponent},
+      {path: 'no-access', component: NoAccessComponent},
       {path: '**', component: NotFoundComponent},
     ])
   ],
@@ -58,7 +70,10 @@ import { RouterModule } from '@angular/router';
     CoursesService, 
     PostService,
     GithubFollowersService,
-    {provide: ErrorHandler, useClass: AppErrorHandler }
+    {provide: ErrorHandler, useClass: AppErrorHandler },
+    AuthService,
+    OrderService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
